@@ -38,11 +38,15 @@ public class SplashActivity extends Activity{
             Intent intent =new Intent
                     (SplashActivity.this,GuideActivity.class);
             startActivity(intent);
+
         }else{
             //不是第一次进入,进入详情页
             Intent intent=new Intent
                     (SplashActivity.this, MainActivity.class);
             startActivity(intent);
         }
+        //关闭当前界面
+        finish();
     }
+
 }
