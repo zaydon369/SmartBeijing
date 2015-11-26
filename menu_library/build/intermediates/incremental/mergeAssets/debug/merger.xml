@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="D:\develop\Android\androidspace\SmartBeijing\menu_library\assets"><file name="android-support-v4.jar" path="D:\develop\Android\androidspace\SmartBeijing\menu_library\assets\android-support-v4.jar"/></source></dataSet><dataSet config="debug"><source path="D:\develop\Android\androidspace\SmartBeijing\menu_library\src\debug\assets"/></dataSet></merger>
