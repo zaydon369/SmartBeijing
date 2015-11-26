@@ -3,6 +3,8 @@ package com.itzheng.smartbeijing;
 import android.os.Bundle;
 import android.view.Window;
 
+import com.itzheng.smartbeijing.fragment.HomeFragment;
+import com.itzheng.smartbeijing.fragment.MenuFragment;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
@@ -16,6 +18,7 @@ public class MainActivity extends SlidingFragmentActivity {
         //去掉标题栏
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.content);
+        //
         setBehindContentView(R.layout.menu_frame);
         slidingMenu = getSlidingMenu();
         //左侧菜单
@@ -28,6 +31,17 @@ public class MainActivity extends SlidingFragmentActivity {
         slidingMenu.setShadowWidthRes(R.dimen.shadow_width);
         //全屏触摸有效
         slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);;
-
+        //使用Fragment填充菜单
+        MenuFragment menuFragment=new MenuFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.menu,menuFragment,"MENU")
+                .commit();
+        //使用Fragment填充主界面
+        HomeFragment homeFragment = new HomeFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.content_frame,homeFragment,"HOME")
+                .commit();
     }
 }

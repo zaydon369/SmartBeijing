@@ -21,3 +21,6 @@
  - 将menu_library库引入当前项目
    - project structure 找到APP
    - dependencies (module dependencies)
+ - 初始化侧滑菜单
+   - 继承 SlidingFragmentActivity
+   -
