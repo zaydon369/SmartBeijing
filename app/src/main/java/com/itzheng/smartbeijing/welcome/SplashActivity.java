@@ -7,6 +7,7 @@ import android.os.SystemClock;
 
 import com.itzheng.smartbeijing.MainActivity;
 import com.itzheng.smartbeijing.R;
+import com.itzheng.smartbeijing.utils.SPUtil;
 
 /**
  * Created by asus on 2015/11/26.
@@ -23,7 +24,8 @@ public class SplashActivity extends Activity{
             @Override
             public void run() {
                 SystemClock.sleep(1000);
-                enterActivity(true);
+
+                enterActivity();
             }
         }).start();
 
@@ -32,13 +34,17 @@ public class SplashActivity extends Activity{
     /**
      * 根据是否第一次进入,跳转到不同页面
      */
-    private void enterActivity(boolean isFirst) {
+    private void enterActivity() {
+        boolean isFirst=
+                SPUtil.getBooleanData(getApplicationContext(),
+                        "isFirst", true);
         if(isFirst){
             //第一次进入,跳到导航页
             Intent intent =new Intent
                     (SplashActivity.this,GuideActivity.class);
             startActivity(intent);
-
+            //将配置文件更改为false
+            SPUtil.saveBooleanData(getApplicationContext(),"isFirst",false);
         }else{
             //不是第一次进入,进入详情页
             Intent intent=new Intent
