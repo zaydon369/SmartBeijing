@@ -41,17 +41,17 @@ public abstract class BaseFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
+
+    /**
+     * 根据不同子类,传入不同数据
+     * @param savedInstanceState
+     */
+    public abstract void initData(Bundle savedInstanceState);
     /**
      * 不同子类,有不同的界面
      * @param inflater
      * @return
      */
     public abstract View initView(LayoutInflater inflater);
-    /**
-     * 根据不同子类,传入不同数据
-     * @param savedInstanceState
-     */
-    public abstract void initData(Bundle savedInstanceState);
-
 
 }

@@ -61,7 +61,8 @@ public class HomeFragment extends BaseFragment{
                     //当前选中的页面
                     @Override
                     public void onPageSelected(int position) {
-
+                        BasePager basePager=pagersList.get(position);
+                        basePager.initData();
                     }
 
                     @Override
@@ -127,5 +128,13 @@ public class HomeFragment extends BaseFragment{
            // super.destroyItem(container, position, object);
             ((MyViewPager)container).removeView((View) object);
         }
+    }
+
+    /**
+     * 返回新闻中心页面
+     * @return
+     */
+    public NewsCenterPager switchNewsCenterPager(){
+        return (NewsCenterPager) pagersList.get(1);
     }
 }

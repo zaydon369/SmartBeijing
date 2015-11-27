@@ -65,3 +65,10 @@
   - 导入Gson工具包
   - 工具类,将json文件,转换成javabean
   - 在新闻中心页中解析javabean得到数据
+
+### 将解析到的菜单标题显示出来
+  - switchMenuFragment
+  - 不同的菜单,指向不同的menuFragment
+
+### 点击不同菜单,显示指定页面
+  - 侧滑菜单显示标题

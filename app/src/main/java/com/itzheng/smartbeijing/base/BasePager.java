@@ -32,6 +32,7 @@ public abstract class BasePager {
         view = initView();
 
     }
+
     public View getRootView(){
 
         return  view;
@@ -44,7 +45,8 @@ public abstract class BasePager {
         Button btn_left = (Button) view.findViewById(R.id.btn_left);
         btn_left.setVisibility(View.GONE);
 
-        ImageButton imgbtn_left = (ImageButton) view.findViewById(R.id.imgbtn_left);
+        ImageButton imgbtn_left = (ImageButton) view.findViewById
+                (R.id.imgbtn_left);
         imgbtn_left.setImageResource(R.drawable.img_menu);
         imgbtn_left.setOnClickListener(new View.OnClickListener() {
             @Override

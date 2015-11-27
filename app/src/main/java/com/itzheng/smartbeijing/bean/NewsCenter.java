@@ -2,9 +2,6 @@ package com.itzheng.smartbeijing.bean;
 
 import java.util.List;
 
-/**
- * Created by asus on 2015/11/27.
- */
 public class NewsCenter {
     public List<NewsCenterItem> data;
     public List<String> extend;
@@ -20,7 +17,6 @@ public class NewsCenter {
         public String dayurl;
         public String excurl;
         public String weekurl;
-
     }
 
     public class Children{
@@ -28,6 +24,5 @@ public class NewsCenter {
         public String title;
         public String type;
         public String url;
-
     }
 }

@@ -44,4 +44,20 @@ public class MainActivity extends SlidingFragmentActivity {
                 .replace(R.id.content_frame,homeFragment,"HOME")
                 .commit();
     }
+
+    /**
+     * 获取对应的菜单
+     * @return
+     */
+    public MenuFragment switchMenuFragment(){
+        return (MenuFragment) getSupportFragmentManager().findFragmentByTag("MENU");
+    }
+
+    /**
+     * 获取当前的homeFragment
+     * @return
+     */
+    public HomeFragment switchHomeFragment(){
+        return (HomeFragment) getSupportFragmentManager().findFragmentByTag("HOME");
+    }
 }
