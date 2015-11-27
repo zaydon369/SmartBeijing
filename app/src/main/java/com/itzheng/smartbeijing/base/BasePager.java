@@ -32,6 +32,10 @@ public abstract class BasePager {
 
         return  view;
     }
+
+    /**
+     * 初始化标题,当子类导入标题布局时,可以直接调用
+     */
     public void initTitleBar(){
         Button btn_left = (Button) view.findViewById(R.id.btn_left);
         btn_left.setVisibility(View.GONE);
@@ -58,4 +62,5 @@ public abstract class BasePager {
     }
     public abstract View initView();
     public abstract  void initData();
+
 }

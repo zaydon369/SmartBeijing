@@ -50,3 +50,7 @@
     - onTouchEvent (false)
   - 去掉预加载
     - DEFAULT_OFFSCREEN_PAGES =0
+### 获取新闻中心数据
+  - 导入xutil库
+    - 如果出现最低版本错误的话,
+    - 到build.gradle修改minSdkVersion 7
