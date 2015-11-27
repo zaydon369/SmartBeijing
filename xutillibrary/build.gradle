@@ -1,8 +1,8 @@
 apply plugin: 'com.android.library'
-
 android {
     compileSdkVersion 10
     buildToolsVersion "19.1.0"
+
 
     defaultConfig {
         minSdkVersion 7
@@ -15,4 +15,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+}
+
+dependencies {
+    compile files('D:/develop/Android/androidspace/SmartBeijing/app/libs/org.apache.http.legacy.jar')
 }

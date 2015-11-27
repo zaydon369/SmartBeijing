@@ -9,6 +9,10 @@ import android.widget.TextView;
 import com.itzheng.smartbeijing.MainActivity;
 import com.itzheng.smartbeijing.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
 
 /**
  * Created by asus on 2015/11/26.
@@ -63,4 +67,17 @@ public abstract class BasePager {
     public abstract View initView();
     public abstract  void initData();
 
+    /**
+     * 通过第三方工具获取数据库数据
+     * @param httpMethod
+     * @param url 请求地址
+     * @param requestParams 请求参数
+     * @param callBack 请求结果回调
+     */
+    public void getData(HttpRequest.HttpMethod httpMethod,String url,
+                        RequestParams requestParams,
+                        RequestCallBack<String> callBack){
+        HttpUtils httpUtils=new HttpUtils();
+        httpUtils.send(httpMethod ,url,requestParams , callBack);
+    }
 }

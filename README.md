@@ -39,18 +39,24 @@
     - setOnCheckedChangeListener
     - 根据当前选中的按钮跳转到对应的viewpager
       - viewpager.setCurrentItem(0);
+
 ### 完善界面显示
   - 初始化标题
     - 给basepager定义一个初始化标题的方法
     - 单独将标题抽取出来
     - 所有的内容使用include导入标题
+
 ### viewPager优化
   - 屏蔽掉滑动事件
     - onInterceptTouchEvent (false)
     - onTouchEvent (false)
   - 去掉预加载
     - DEFAULT_OFFSCREEN_PAGES =0
+
 ### 获取新闻中心数据
   - 导入xutil库
     - 如果出现最低版本错误的话,
     - 到build.gradle修改minSdkVersion 7
+  - 在basepager设置获取数据的方法
+  - xutil发现找不到HttpMethod
+    - 导入org.apache.http.legacy.jar
