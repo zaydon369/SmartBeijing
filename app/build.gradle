@@ -25,4 +25,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile project(':menu_library')
     compile project(':xutillibrary')
+    compile files('libs/gson-2.2.1.jar')
 }

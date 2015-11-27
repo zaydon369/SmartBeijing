@@ -60,3 +60,8 @@
   - 在basepager设置获取数据的方法
   - xutil发现找不到HttpMethod
     - 导入org.apache.http.legacy.jar
+
+### 解析数据(json)
+  - 导入Gson工具包
+  - 工具类,将json文件,转换成javabean
+  - 在新闻中心页中解析javabean得到数据

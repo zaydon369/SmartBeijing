@@ -39,6 +39,18 @@ public class SPUtil {
         return sharedPreferences.getBoolean(key,defValue);
     }
 
+    public static String getStringData(Context context, String key, String defValue) {
+        initSP(context);
+        return  sharedPreferences.getString(key, defValue);
+    }
+    public static void saveStringData
+            (Context context, String key, String value) {
+        //如果sp文件不存在,先创建一个
+        initSP(context);
+        //将数据保存到配置文件
+        sharedPreferences.edit().putString(key, value).commit();
+    }
+
     /**
      * 初始化sharedPreferences文件
      *
@@ -50,6 +62,7 @@ public class SPUtil {
                     (CONFIG, Context.MODE_PRIVATE);
         }
     }
+
 
 
 }
