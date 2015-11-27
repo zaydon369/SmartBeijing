@@ -2,8 +2,8 @@ package com.itzheng.smartbeijing.pager;
 
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.widget.TextView;
 
+import com.itzheng.smartbeijing.R;
 import com.itzheng.smartbeijing.base.BasePager;
 
 /**
@@ -11,10 +11,16 @@ import com.itzheng.smartbeijing.base.BasePager;
  */
 public class NewsCenterPager extends BasePager {
     @Override
-    protected View initView() {
-        TextView textView = new TextView(context);
-        textView.setText("新闻中心");
-        return textView;
+    public View initView() {
+        view = View.inflate(context, R.layout.news_center_frame, null);
+
+        initTitleBar();
+        return view;
+    }
+
+    @Override
+    public void initData() {
+
     }
 
     public NewsCenterPager(FragmentActivity activity) {

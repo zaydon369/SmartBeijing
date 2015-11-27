@@ -15,9 +15,15 @@ public class FuctionPager extends BasePager {
     }
 
     @Override
-    protected View initView() {
+    public View initView() {
         TextView textView = new TextView(context);
         textView.setText("首页");
+
         return textView;
+    }
+
+    @Override
+    public void initData() {
+
     }
 }

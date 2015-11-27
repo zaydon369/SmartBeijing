@@ -11,10 +11,15 @@ import com.itzheng.smartbeijing.base.BasePager;
  */
 public class SmartServicePager extends BasePager {
     @Override
-    protected View initView() {
+    public View initView() {
         TextView textView = new TextView(context);
         textView.setText("智慧服务");
         return textView;
+    }
+
+    @Override
+    public void initData() {
+
     }
 
     public SmartServicePager(FragmentActivity activity) {

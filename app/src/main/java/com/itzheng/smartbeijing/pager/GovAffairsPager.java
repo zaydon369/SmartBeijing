@@ -15,9 +15,14 @@ public class GovAffairsPager extends BasePager {
     }
 
     @Override
-    protected View initView() {
+    public View initView() {
         TextView textView = new TextView(context);
         textView.setText("政务指南");
         return textView;
+    }
+
+    @Override
+    public void initData() {
+
     }
 }

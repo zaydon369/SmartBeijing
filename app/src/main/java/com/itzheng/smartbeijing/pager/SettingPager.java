@@ -15,9 +15,14 @@ public class SettingPager extends BasePager {
     }
 
     @Override
-    protected View initView() {
+    public View initView() {
         TextView textView = new TextView(context);
         textView.setText("设置");
         return textView;
+    }
+
+    @Override
+    public void initData() {
+
     }
 }
