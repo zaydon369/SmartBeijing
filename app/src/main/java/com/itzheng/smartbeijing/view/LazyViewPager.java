@@ -68,7 +68,7 @@ public class LazyViewPager extends ViewGroup {
     private static final boolean DEBUG = false;
 
     private static final boolean USE_CACHE = false;
-
+    //设置预加载0页
     private static final int DEFAULT_OFFSCREEN_PAGES = 0;
     private static final int MAX_SETTLE_DURATION = 600;
 
@@ -637,7 +637,7 @@ public class LazyViewPager extends ViewGroup {
         mAdapter.startUpdate(this);
 
         final int pageLimit = mOffscreenPageLimit;
-        
+        //设置只加载当前页
         final int startPos = Math.max(0, mCurItem - pageLimit);
         final int N = mAdapter.getCount();
         final int endPos = Math.min(N-1, mCurItem + pageLimit);

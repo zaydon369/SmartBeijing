@@ -44,3 +44,9 @@
     - 给basepager定义一个初始化标题的方法
     - 单独将标题抽取出来
     - 所有的内容使用include导入标题
+### viewPager优化
+  - 屏蔽掉滑动事件
+    - onInterceptTouchEvent (false)
+    - onTouchEvent (false)
+  - 去掉预加载
+    - DEFAULT_OFFSCREEN_PAGES =0

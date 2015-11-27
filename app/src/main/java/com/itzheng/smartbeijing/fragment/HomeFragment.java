@@ -69,6 +69,7 @@ public class HomeFragment extends BaseFragment{
 
                     }
                 });
+        //
         //radioGroup,按钮组,查看当前选中的按钮
         radioGroup.setOnCheckedChangeListener
                 (new RadioGroup.OnCheckedChangeListener() {
