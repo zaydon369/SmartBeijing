@@ -91,6 +91,10 @@ public class NewsPager extends BasePager {
         basePager.initData();
     }
     class MyAdapter extends PagerAdapter{
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titleList.get(position);
+        }
 
         @Override
         public int getCount() {

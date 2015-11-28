@@ -119,9 +119,10 @@ public class HomeFragment extends BaseFragment{
         public Object instantiateItem(ViewGroup container, int position) {
            // return super.instantiateItem(container, position);
             ((MyViewPager)container).
-                    addView(pagersList.get(position).getRootView());;
+                    addView(pagersList.get(position).getRootView());
             return pagersList.get(position).getRootView();
         }
+
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
