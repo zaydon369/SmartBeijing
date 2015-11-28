@@ -19,6 +19,7 @@ import com.itzheng.smartbeijing.utils.GsonUtil;
 import com.itzheng.smartbeijing.utils.HMApi;
 import com.itzheng.smartbeijing.utils.SPUtil;
 import com.itzheng.smartbeijing.view.RollViewPager;
+import com.itzheng.smartbeijing.view.pullrefreshview.PullToRefreshListView;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -51,7 +52,7 @@ public class NewsItemPager extends BasePager {
     private LinearLayout dots_ll;
 
     //  @ViewInject(R.id.lv_item_news)
-  //  private PullToRefreshListView ptrlv;
+    private PullToRefreshListView ptrlv;
   //  private PullToRefreshListView lv_item_news;
     //
     private List<String> titleList = new ArrayList<String>();
@@ -60,7 +61,7 @@ public class NewsItemPager extends BasePager {
 
 
 
-//    private MyBaseAdapter myBaseAdapter;
+    private MyBaseAdapter myBaseAdapter;
     private String Tag =NewsItemPager.class.getSimpleName();
     private NewsBean newsItem;
 
@@ -85,7 +86,7 @@ public class NewsItemPager extends BasePager {
 
         //NewsItem的布局加载
         view = View.inflate(context, R.layout.frag_item_news, null);
-//        ptrlv= (PullToRefreshListView) view.findViewById(R.id.lv_item_news);
+        ptrlv= (PullToRefreshListView) view.findViewById(R.id.lv_item_news);
         //下拉加载数据
 
         //
@@ -149,20 +150,20 @@ public class NewsItemPager extends BasePager {
 
             //需要添加到listView上面去
             //layout_roll_view就是个listview
-//            if(ptrlv.getRefreshableView().getHeaderViewsCount()<1){
-//                ptrlv.getRefreshableView().addHeaderView(layout_roll_view);
-//            }
-//        }
-//        //填充后,头部轮转图才会显示
-//        if(newsItem.data.news.size()>0){
-//
-//            if(myBaseAdapter==null){
-//                myBaseAdapter=new MyBaseAdapter
-//                        (context, newsItem.data.news,ptrlv.getRefreshableView());
-//                ptrlv.getRefreshableView().setAdapter(myBaseAdapter);
-//            }else{
-//                myBaseAdapter.notifyDataSetChanged();
-//            }
+            if(ptrlv.getRefreshableView().getHeaderViewsCount()<1){
+                ptrlv.getRefreshableView().addHeaderView(layout_roll_view);
+            }
+        }
+        //填充后,头部轮转图才会显示
+        if(newsItem.data.news.size()>0){
+
+            if(myBaseAdapter==null){
+                myBaseAdapter=new MyBaseAdapter
+                        (context, newsItem.data.news,ptrlv.getRefreshableView());
+                ptrlv.getRefreshableView().setAdapter(myBaseAdapter);
+            }else{
+                myBaseAdapter.notifyDataSetChanged();
+            }
         }
     }
     class MyBaseAdapter extends HMAdapter<NewsBean.News,ListView>{
@@ -179,9 +180,9 @@ public class NewsItemPager extends BasePager {
                 convertView=View.inflate(context,R.layout.layout_news_item,null);
             }
             //找到子控件
-            ImageView iv_img= (ImageView) view.findViewById(R.id.iv_img);
-            TextView tv_title= (TextView) view.findViewById(R.id.tv_title);
-            TextView tv_pub_date= (TextView) view.findViewById(R.id.tv_pub_date);
+            ImageView iv_img= (ImageView) convertView.findViewById(R.id.iv_img);
+            TextView tv_title= (TextView) convertView.findViewById(R.id.tv_title);
+            TextView tv_pub_date= (TextView) convertView.findViewById(R.id.tv_pub_date);
             //添加数据
             BitmapUtils bitmapUtils=new BitmapUtils(context);
             bitmapUtils.display(iv_img,list.get(position).listimage);
