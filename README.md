@@ -76,3 +76,9 @@
 ### 新闻内容界面
   - 指针显示
     - 记得在androidManifest添加主题
+  - 添加顶部图片
+  - 添加listview新闻条目
+  - 给顶部头条添加定时滚动
+    - 使用handler时,页面切换记得清空消息
+      - protected void onDetachedFromWindow()
+      - handler.removeCallbacksAndMessages(null);

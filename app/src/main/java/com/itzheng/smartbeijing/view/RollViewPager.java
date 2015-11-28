@@ -1,7 +1,7 @@
 package com.itzheng.smartbeijing.view;
 
 import android.content.Context;
-import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -26,25 +26,32 @@ public class RollViewPager extends ViewPager{
     private List<String> titleList;
     private List<String> urlImgList;
     private BitmapUtils bitmapUtils;
-    private RunnableTask runnableTask;
-    private int currentPosition=0;
-    private android.os.Handler handler=new Handler();
-    private MyRollPagerAdapter myRollPagerAdapter;
+//    private RunnableTask runnableTask;
+    private  int currentPosition=0;
     String tag=RollViewPager.class.getSimpleName();
-    class RunnableTask implements Runnable{
-
+    //自动滚动
+    private android.os.Handler handler=new android.os.Handler(){
         @Override
-        public void run() {
-            //滚动viewPager
-
+        public void handleMessage(Message msg) {
+           // super.handleMessage(msg);
+            //延续当前3秒一次的滚动状态
+            RollViewPager.this.setCurrentItem(currentPosition);
+            startRoll();
         }
-    }
+    };
+
+
+    private MyRollPagerAdapter myRollPagerAdapter;
+
+
     public RollViewPager(Context context,final List<View> viewList) {
         super(context);
         this.context=context;
         this.viewList=viewList;
         bitmapUtils = new BitmapUtils(context);
-        runnableTask = new RunnableTask();
+        //添加定时滚动
+//        runnableTask = new RunnableTask();
+
         this.setOnPageChangeListener(new OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -71,7 +78,17 @@ public class RollViewPager extends ViewPager{
 
             }
         });
+
+
     }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        handler.removeCallbacksAndMessages(null);
+        super.onDetachedFromWindow();
+
+    }
+
     //将图片关联说明的文字集合,需要显示的控件,传递进来
     public void initTitleList(TextView top_news_title,List<String> titleList){
         if(null != top_news_title && null != titleList && titleList.size()>0){
@@ -95,9 +112,36 @@ public class RollViewPager extends ViewPager{
         }else{
             myRollPagerAdapter.notifyDataSetChanged();
         }
-
+    //定时滚动
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //当前的指针+1
+                currentPosition = (currentPosition + 1) % (urlImgList.size());
+                //发送一条空消息
+                handler.obtainMessage().sendToTarget();
+                Log.i(tag,"定时发送消息");
+            }
+        },3000);
 
     }
+
+//    class RunnableTask implements Runnable{
+//
+//        //滚动viewPager
+//        @Override
+//        public void run() {
+////            while (true) {
+//            //    SystemClock.sleep(3000);
+//                //当前的指针+1
+//                currentPosition = (currentPosition + 1) % (urlImgList.size());
+//                //发送一条空消息
+//                handler.obtainMessage().sendToTarget();
+////            }
+//
+//        }
+//    }
+
     class MyRollPagerAdapter extends PagerAdapter{
 
         @Override
