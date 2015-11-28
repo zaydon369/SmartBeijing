@@ -10,14 +10,20 @@ import java.util.List;
 /**
  * Created by asus on 2015/11/26.
  */
-public abstract class HMAdapter<T> extends BaseAdapter{
+public abstract class HMAdapter<T,Q> extends BaseAdapter{
     public  Context context;
     public  List<T> list;
+    //当前的Q圈定泛型,当前的Q是view的子类
+    public View Q;
 
-    public HMAdapter(Context context,List<T> list){
+    public HMAdapter(Context context,List<T> list,View Q){
         this.list=list;
         this.context=context;
+        this.Q=Q;
     }
+
+
+
     @Override
     public int getCount() {
 

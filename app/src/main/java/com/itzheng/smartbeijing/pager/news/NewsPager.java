@@ -108,7 +108,8 @@ public class NewsPager extends BasePager {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-
+            //
+            ((ViewPager)container).addView(pagerList.get(position).getRootView());
             return pagerList.get(position).getRootView();
         }
 

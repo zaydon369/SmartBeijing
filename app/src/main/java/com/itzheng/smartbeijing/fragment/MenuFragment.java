@@ -69,7 +69,7 @@ public class MenuFragment extends BaseFragment{
      */
     class MyAdapter extends HMAdapter{
         public MyAdapter(Context context, List<String> list) {
-            super(context, list);
+            super(context, list,null);
         }
 
         @Override

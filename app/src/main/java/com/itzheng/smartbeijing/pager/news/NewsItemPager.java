@@ -2,9 +2,12 @@ package com.itzheng.smartbeijing.pager.news;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.itzheng.smartbeijing.R;
@@ -16,7 +19,7 @@ import com.itzheng.smartbeijing.utils.GsonUtil;
 import com.itzheng.smartbeijing.utils.HMApi;
 import com.itzheng.smartbeijing.utils.SPUtil;
 import com.itzheng.smartbeijing.view.RollViewPager;
-import com.itzheng.smartbeijing.view.pullrefreshview.PullToRefreshListView;
+import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
@@ -48,8 +51,8 @@ public class NewsItemPager extends BasePager {
     private LinearLayout dots_ll;
 
     //  @ViewInject(R.id.lv_item_news)
-    private PullToRefreshListView ptrlv;
-    private PullToRefreshListView lv_item_news;
+  //  private PullToRefreshListView ptrlv;
+  //  private PullToRefreshListView lv_item_news;
     //
     private List<String> titleList = new ArrayList<String>();
     private List<String> urlImagList = new ArrayList<String>();
@@ -57,15 +60,19 @@ public class NewsItemPager extends BasePager {
 
 
 
-    private MyBaseAdapter myBaseAdapter;
+//    private MyBaseAdapter myBaseAdapter;
+    private String Tag =NewsItemPager.class.getSimpleName();
+    private NewsBean newsItem;
 
     public NewsItemPager(Context context, String url) {
         super(context);
+        Log.i(Tag, "url" + url);
         this.url = url;
     }
 
     @Override
     public View initView() {
+        //轮播图的布局加载
         layout_roll_view = View.inflate
                 (context, R.layout.layout_roll_view, null);
         //使用注解
@@ -76,30 +83,37 @@ public class NewsItemPager extends BasePager {
         top_news_title = (TextView) layout_roll_view.findViewById(R.id.top_news_title);
         dots_ll = (LinearLayout) layout_roll_view.findViewById(R.id.dots_ll);
 
-        //
+        //NewsItem的布局加载
         view = View.inflate(context, R.layout.frag_item_news, null);
-        ptrlv= (PullToRefreshListView) view.findViewById(R.id.lv_item_news);
+//        ptrlv= (PullToRefreshListView) view.findViewById(R.id.lv_item_news);
+        //下拉加载数据
+
         //
-        lv_item_news = (PullToRefreshListView) view.findViewById(R.id.lv_item_news);
+        //lv_item_news = (PullToRefreshListView) view.findViewById(R.id.lv_item_news);
         return view;
+
     }
 
     @Override
     public void initData() {
         String result = SPUtil.getStringData(context, HMApi.BASE_URL + url, "");
         if (!TextUtils.isEmpty(result)) {
+            //直接解析
             processData(result);
-            return;
+           // return;
         }
-        getNewsItemPager();
+        getNewsItemPager(true,url);
     }
 
-    private void getNewsItemPager() {
+    private void getNewsItemPager(final boolean isRefresh,final String url) {
+
+
         getData(HttpRequest.HttpMethod.GET, HMApi.BASE_URL + url, null,
                 new RequestCallBack<String>() {
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {
                         SPUtil.saveStringData(context, HMApi.BASE_URL + url, responseInfo.result);
+                        processData(responseInfo.result);
                     }
 
                     @Override
@@ -109,17 +123,21 @@ public class NewsItemPager extends BasePager {
                 });
     }
 
+    /**
+     * 解析数据
+     * @param result
+     */
     private void processData(String result) {
-        NewsBean bean = GsonUtil.jsonToBean(result, NewsBean.class);
+        newsItem = GsonUtil.jsonToBean(result, NewsBean.class);
         //将当前对应bean中的轮播图取的title,url单独获取出来
-        if (bean.data.topnews.size() > 0) {
-            for (int i = 0; i < bean.data.topnews.size(); i++) {
+        if (newsItem.data.topnews.size() > 0) {
+            for (int i = 0; i < newsItem.data.topnews.size(); i++) {
 
-                titleList.add(bean.data.topnews.get(i).title);
-                urlImagList.add(bean.data.topnews.get(i).url);
+                titleList.add(newsItem.data.topnews.get(i).title);
+                urlImagList.add(newsItem.data.topnews.get(i).url);
             }
-            initDot();
-            //组装
+//            initDot();
+            //组装,编写一个每个工程都能用的viepager
             RollViewPager rollViewPager = new RollViewPager
                     (context, viewList);
             rollViewPager.initTitleList(top_news_title,titleList);
@@ -131,34 +149,47 @@ public class NewsItemPager extends BasePager {
 
             //需要添加到listView上面去
             //layout_roll_view就是个listview
-            if(ptrlv.getRefreshableView().getHeaderViewsCount()<1){
-                ptrlv.getRefreshableView().addHeaderView(layout_roll_view);
-            }
-        }
-        //填充后,头部轮转图才会显示
-        if(bean.data.news.size()>0){
-            if(myBaseAdapter==null){
-                myBaseAdapter=new MyBaseAdapter(context,bean.data.news);
-                ptrlv.getRefreshableView().setAdapter(myBaseAdapter);
-            }else{
-                myBaseAdapter.notifyDataSetChanged();
-            }
+//            if(ptrlv.getRefreshableView().getHeaderViewsCount()<1){
+//                ptrlv.getRefreshableView().addHeaderView(layout_roll_view);
+//            }
+//        }
+//        //填充后,头部轮转图才会显示
+//        if(newsItem.data.news.size()>0){
+//
+//            if(myBaseAdapter==null){
+//                myBaseAdapter=new MyBaseAdapter
+//                        (context, newsItem.data.news,ptrlv.getRefreshableView());
+//                ptrlv.getRefreshableView().setAdapter(myBaseAdapter);
+//            }else{
+//                myBaseAdapter.notifyDataSetChanged();
+//            }
         }
     }
-    class MyBaseAdapter extends HMAdapter<NewsBean.News>{
+    class MyBaseAdapter extends HMAdapter<NewsBean.News,ListView>{
 
-        public MyBaseAdapter(Context context, List<NewsBean.News> list) {
-            super(context, list);
+
+        public MyBaseAdapter(Context context, List<NewsBean.News> list, View Q) {
+            super(context, list, Q);
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            View view=View.inflate(context,R.layout.layout_news_item,null);
-//            ImageView iv_img= (ImageView) view.findViewById(R.id.iv_img);
-//            TextView tv_title= (TextView) view.findViewById(R.id.tv_title);
-//           TextView tv_pub_date= (TextView) view.findViewById(R.id.tv_pub_date);
 
-            return view;
+            if(convertView ==null){
+                convertView=View.inflate(context,R.layout.layout_news_item,null);
+            }
+            //找到子控件
+            ImageView iv_img= (ImageView) view.findViewById(R.id.iv_img);
+            TextView tv_title= (TextView) view.findViewById(R.id.tv_title);
+            TextView tv_pub_date= (TextView) view.findViewById(R.id.tv_pub_date);
+            //添加数据
+            BitmapUtils bitmapUtils=new BitmapUtils(context);
+            bitmapUtils.display(iv_img,list.get(position).listimage);
+            tv_title.setText(list.get(position).title);
+            tv_pub_date.setText(list.get(position).pubdate);
+            //通过自己添加并且管理的isRead,去判断当前新闻是否已读
+           // if (){}
+            return convertView;
         }
     }
     //实例化点
