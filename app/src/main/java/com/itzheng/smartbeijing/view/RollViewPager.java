@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -28,6 +29,8 @@ public class RollViewPager extends ViewPager{
     private RunnableTask runnableTask;
     private int currentPosition=0;
     private android.os.Handler handler=new Handler();
+    private MyRollPagerAdapter myRollPagerAdapter;
+    String tag=RollViewPager.class.getSimpleName();
     class RunnableTask implements Runnable{
 
         @Override
@@ -80,13 +83,22 @@ public class RollViewPager extends ViewPager{
     }
     //显示图片的url地址的集合
     public void initImgUrlList(List<String> urlImgList){
+
+        Log.i(tag,"图片地址:"+urlImgList.toString());
         this.urlImgList=urlImgList;
     }
     //开始滚动
-    public void staetRoll(){
+    public void startRoll(){
+        if(myRollPagerAdapter ==null){
+            myRollPagerAdapter=new MyRollPagerAdapter();
+            this.setAdapter(myRollPagerAdapter);
+        }else{
+            myRollPagerAdapter.notifyDataSetChanged();
+        }
+
 
     }
-    class MyAdapter extends PagerAdapter{
+    class MyRollPagerAdapter extends PagerAdapter{
 
         @Override
         public int getCount() {

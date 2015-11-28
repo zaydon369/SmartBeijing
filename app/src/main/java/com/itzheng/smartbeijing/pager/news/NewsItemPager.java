@@ -137,7 +137,7 @@ public class NewsItemPager extends BasePager {
             for (int i = 0; i < newsItem.data.topnews.size(); i++) {
 
                 titleList.add(newsItem.data.topnews.get(i).title);
-                urlImagList.add(newsItem.data.topnews.get(i).url);
+                urlImagList.add(newsItem.data.topnews.get(i).topimage);
             }
             initDot();
             //组装,编写一个每个工程都能用的viepager
@@ -145,7 +145,7 @@ public class NewsItemPager extends BasePager {
                     (context, viewList);
             rollViewPager.initTitleList(top_news_title,titleList);
             rollViewPager.initImgUrlList(urlImagList);
-            rollViewPager.staetRoll();
+            rollViewPager.startRoll();
 
             top_news_viewpager.removeAllViews();
             top_news_viewpager.addView(rollViewPager);
