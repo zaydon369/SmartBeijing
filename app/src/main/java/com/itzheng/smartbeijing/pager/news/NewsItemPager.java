@@ -137,7 +137,7 @@ public class NewsItemPager extends BasePager {
                 titleList.add(newsItem.data.topnews.get(i).title);
                 urlImagList.add(newsItem.data.topnews.get(i).url);
             }
-//            initDot();
+            initDot();
             //组装,编写一个每个工程都能用的viepager
             RollViewPager rollViewPager = new RollViewPager
                     (context, viewList);
@@ -204,7 +204,6 @@ public class NewsItemPager extends BasePager {
             }else{
                 view.setBackgroundResource(R.drawable.dot_normal);
             }
-        }
         LinearLayout.LayoutParams layoutParams=
                 new LinearLayout.LayoutParams
                         (CommonUtil.dip2px(context, 6),CommonUtil.dip2px(context,6));
@@ -212,6 +211,7 @@ public class NewsItemPager extends BasePager {
         layoutParams.setMargins(5, 0, 5, 0);
         dots_ll.addView(view);
         viewList.add(view);
+        }
 
 
 
