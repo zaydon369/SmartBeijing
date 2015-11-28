@@ -132,6 +132,8 @@ public class NewsItemPager extends BasePager {
         newsItem = GsonUtil.jsonToBean(result, NewsBean.class);
         //将当前对应bean中的轮播图取的title,url单独获取出来
         if (newsItem.data.topnews.size() > 0) {
+            //清空之前数据
+            urlImagList.clear();
             for (int i = 0; i < newsItem.data.topnews.size(); i++) {
 
                 titleList.add(newsItem.data.topnews.get(i).title);
@@ -195,6 +197,7 @@ public class NewsItemPager extends BasePager {
     }
     //实例化点
     private void initDot(){
+        //清空之前数据
         dots_ll.removeAllViews();
         viewList.clear();
         for(int i=0;i<urlImagList.size();i++){
